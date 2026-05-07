@@ -1,469 +1,408 @@
 <!DOCTYPE html>
-<html lang="vi" class="scroll-smooth">
+<html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khánh Chi | Digital Intelligence Portfolio</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script src="https://unpkg.com/feather-icons"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Portfolio · Hoàng Mạnh Dũng · ULIS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                        mono: ['"Space Grotesk"', 'monospace'],
-                    },
-                    colors: {
-                        ai: {
-                            bg: '#040509',         /* Deep Space Black */
-                            surface: '#0d1117',    /* Dark Surface */
-                            blue: '#4285F4',       /* Google Blue */
-                            purple: '#9b72cb',     /* Gemini Purple */
-                            pink: '#d96570',       /* Warm Accent */
-                            text: '#e8eaed',       /* Crisp White */
-                            muted: '#9aa0a6',      /* Cool Gray */
-                            border: 'rgba(255, 255, 255, 0.08)'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            background-color: var(--ai-bg);
-            color: var(--ai-text);
-            font-family: 'Outfit', sans-serif;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#060810;
+  --surface:rgba(255,255,255,0.032);
+  --b1:rgba(0,180,255,0.18);
+  --b2:rgba(180,80,255,0.18);
+  --cyan:#00c8ff;
+  --violet:#b44fff;
+  --pink:#ff3ea5;
+  --gold:#ffd700;
+  --white:#e8eeff;
+  --muted:#5a6580;
+  --fH:'Barlow Condensed', sans-serif;
+  --fB:'Be Vietnam Pro', sans-serif;
+  --fM:'JetBrains Mono', monospace;
+}
+html{background:var(--bg);color:var(--white);font-family:var(--fB);scroll-behavior:smooth}
+body{overflow-x:hidden;cursor:none}
 
-        h1, h2, h3, .font-mono {
-            font-family: 'Space Grotesk', monospace;
-        }
+#cursor{position:fixed;width:12px;height:12px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s,background .2s;box-shadow:0 0 12px var(--cyan),0 0 24px rgba(0,200,255,.4)}
+#cursor-trail{position:fixed;width:36px;height:36px;border:1px solid rgba(0,200,255,.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .12s ease,top .12s ease}
 
-        /* --- THE GEMINI AURORA BACKGROUND --- */
-        .aurora-container {
-            position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-        }
-        .aurora-blob {
-            position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.5;
-            animation: breathe 15s infinite alternate ease-in-out;
-        }
-        .blob-1 { width: 60vw; height: 60vw; background: rgba(66, 133, 244, 0.15); top: -20%; left: -10%; }
-        .blob-2 { width: 50vw; height: 50vw; background: rgba(155, 114, 203, 0.15); bottom: -10%; right: -10%; animation-delay: -5s; }
-        .blob-3 { width: 40vw; height: 40vw; background: rgba(217, 101, 112, 0.1); top: 40%; left: 30%; animation-delay: -10s; }
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
+body::after{content:'';position:fixed;inset:0;z-index:1;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,.03) 0px,rgba(0,0,0,.03) 1px,transparent 1px,transparent 3px)}
 
-        @keyframes breathe {
-            0% { transform: scale(1) translate(0, 0); }
-            100% { transform: scale(1.1) translate(5%, 5%); }
-        }
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:center;padding:20px 24px}
+.nav-pill{display:flex;align-items:center;gap:36px;background:rgba(6,8,16,.75);backdrop-filter:blur(20px);border:1px solid var(--b1);border-radius:999px;padding:12px 32px}
+.nav-logo{font-family:var(--fH);font-size:20px;letter-spacing:.18em;color:var(--cyan);display:flex;align-items:center;gap:10px; font-weight: 600;}
+.nav-logo .pulse{width:7px;height:7px;background:var(--cyan);border-radius:50%;box-shadow:0 0 8px var(--cyan);animation:blink 2s infinite}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;font-family:var(--fM)}
+.nav-links a:hover{color:var(--white)}
 
-        /* --- NEURAL GLASSMORPHISM --- */
-        .glass-card {
-            background: rgba(13, 17, 23, 0.6);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid var(--ai-border);
-            border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-        }
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px 120px;position:relative;z-index:10}
 
-        /* --- AI GRADIENT TEXT --- */
-        .text-ai-gradient {
-            background: linear-gradient(135deg, #4285F4 0%, #9b72cb 50%, #d96570 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+#intro{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding-top:100px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,200,255,.28);background:rgba(0,200,255,.05);color:var(--cyan);font-size:11px;letter-spacing:.22em;text-transform:uppercase;padding:8px 18px;border-radius:999px;margin-bottom:36px;font-family:var(--fM)}
+.hero-tag .dot{width:5px;height:5px;background:var(--cyan);border-radius:50%;animation:blink 1.6s infinite}
 
-        /* --- GLOWING MODULE CARDS --- */
-        .module-card {
-            position: relative;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 2rem;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            overflow: hidden;
-        }
-        
-        /* The glowing edge effect */
-        .module-card::before {
-            content: ""; position: absolute; inset: 0; border-radius: 16px; padding: 2px;
-            background: linear-gradient(135deg, #4285F4, #9b72cb, #d96570);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor; mask-composite: exclude;
-            opacity: 0; transition: opacity 0.5s ease;
-        }
-        
-        /* Inner glow */
-        .module-card::after {
-            content: ""; position: absolute; inset: 0;
-            background: radial-gradient(circle at 50% 0%, rgba(155, 114, 203, 0.1), transparent 70%);
-            opacity: 0; transition: opacity 0.5s ease; pointer-events: none;
-        }
+h1{font-family:var(--fH);font-size:clamp(50px,10vw,110px);line-height:.92;letter-spacing:.02em;margin-bottom:8px; font-weight: 700;}
+.glitch{position:relative;display:inline-block}
+.glitch::before,.glitch::after{content:attr(data-text);position:absolute;top:0;left:0;pointer-events:none}
+.glitch::before{color:var(--cyan);clip-path:polygon(0 0,100% 0,100% 35%,0 35%);animation:glitch1 3.5s infinite}
+.glitch::after{color:var(--pink);clip-path:polygon(0 65%,100% 65%,100% 100%,0 100%);animation:glitch2 3.5s infinite}
+.grad{background:linear-gradient(135deg,var(--white) 20%,var(--cyan) 55%,var(--violet));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 
-        .module-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.04); }
-        .module-card:hover::before, .module-card:hover::after { opacity: 1; }
+.hero-sub{font-size:16px;color:var(--muted);font-family:var(--fM);letter-spacing:.08em;margin-bottom:48px}
+.hero-sub span{color:var(--cyan)}
 
-        .module-card.locked { opacity: 0.5; pointer-events: none; filter: grayscale(100%); }
+.hero-grid{display:grid;grid-template-columns:1fr 340px;gap:36px;align-items:start}
+.hero-quote{font-size:16px;line-height:1.8;color:rgba(232,238,255,.6);border-left:2px solid rgba(0,200,255,.3);padding-left:22px;padding-top:4px; font-weight: 300;}
 
-        /* --- SMART ANIMATIONS --- */
-        .reveal {
-            opacity: 0; transform: translateY(30px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+.id-card{background:var(--surface);border:1px solid var(--b1);border-radius:18px;padding:28px;position:relative;overflow:hidden;backdrop-filter:blur(14px)}
+.id-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.id-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,200,255,.04) 0%,transparent 60%);pointer-events:none}
+.id-name{font-family:var(--fH);font-size:26px;letter-spacing:.06em;margin-bottom:4px; font-weight: 600;}
+.id-role{font-size:11px;color:var(--cyan);letter-spacing:.16em;text-transform:uppercase;font-family:var(--fM);margin-bottom:20px}
+.id-rows{display:flex;flex-direction:column;gap:8px;border-top:1px solid rgba(255,255,255,.06);padding-top:16px}
+.id-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);font-family:var(--fM)}
+.id-row strong{color:var(--white)}
+.id-tags{display:flex;gap:8px;margin-top:16px}
+.tag{font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:4px;font-family:var(--fM)}
+.tag-c{background:rgba(0,200,255,.1);color:var(--cyan);border:1px solid rgba(0,200,255,.22)}
+.tag-v{background:rgba(180,80,255,.1);color:var(--violet);border:1px solid rgba(180,80,255,.22)}
 
-        /* --- CUSTOM SCROLLBAR --- */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #040509; }
-        ::-webkit-scrollbar-thumb { background: #3c4043; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #9b72cb; }
+.sec{padding-top:140px}
+.sec-head{display:flex;align-items:center;gap:20px;margin-bottom:48px}
+.sec-head h2{font-family:var(--fH);font-size:clamp(36px,5vw,56px);letter-spacing:.04em; font-weight: 600;}
+.rule{flex:1;height:1px;background:linear-gradient(90deg,rgba(0,200,255,.3),transparent)}
 
-        .content-layer { position: relative; z-index: 10; }
-        
-        /* Grid pattern for the tech feel */
-        .bg-grid {
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            position: absolute; inset: 0; pointer-events: none; z-index: 1;
-        }
-    </style>
+.grid6{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+.mod{background:var(--surface);border:1px solid var(--b1);border-radius:18px;padding:30px;cursor:pointer;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s,border-color .3s;backdrop-filter:blur(10px)}
+.mod::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0;transition:opacity .3s}
+.mod:hover::before{opacity:1}
+.mod:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,200,255,.1),0 0 0 1px rgba(0,200,255,.3);border-color:rgba(0,200,255,.4)}
+.mod.locked{opacity:.5;cursor:not-allowed}
+.mod.locked:hover{transform:none;box-shadow:none;border-color:var(--b1)}
+.mod.locked:hover::before{opacity:0}
+.mod-num{font-family:var(--fH);font-size:52px;color:rgba(255,255,255,.05);line-height:1;margin-bottom:10px;transition:color .3s; font-weight: 700;}
+.mod:hover .mod-num{color:rgba(0,200,255,.15)}
+.mod-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);font-family:var(--fM);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.sdot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.sdot.done{background:#00ff88;box-shadow:0 0 6px #00ff88}
+.sdot.wip{background:#ffc94d;box-shadow:0 0 6px #ffc94d}
+.mod-title{font-family:var(--fH);font-size:24px;letter-spacing:.04em;color:var(--white);margin-bottom:10px;line-height:1.2; font-weight: 500;}
+.mod-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:22px;min-height:52px; font-weight: 400;}
+.mod-btn{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(0,200,255,.25);padding:9px 18px;border-radius:6px;background:rgba(0,200,255,.06);font-family:var(--fM);transition:all .2s}
+.mod-btn:hover{background:rgba(0,200,255,.16);border-color:var(--cyan);color:#fff;box-shadow:0 0 16px rgba(0,200,255,.2)}
+.mod-lock{font-size:11px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-family:var(--fM)}
+
+.ripple{position:absolute;border-radius:50%;background:rgba(0,200,255,.25);transform:scale(0);animation:ripple-anim .6s linear;pointer-events:none}
+@keyframes ripple-anim{to{transform:scale(4);opacity:0}}
+
+.reflect-wrap{display:grid;grid-template-columns:1fr 260px;gap:28px;align-items:start}
+.reflect-body{background:var(--surface);border:1px solid var(--b1);border-radius:18px;padding:36px;position:relative;overflow:hidden;backdrop-filter:blur(10px)}
+.reflect-body::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.reflect-body p{font-size:15px;line-height:1.85;color:rgba(232,238,255,.72);margin-bottom:18px; font-weight: 400;}
+.reflect-body p:last-child{margin-bottom:0}
+.reflect-body .hl{color:var(--cyan);font-weight:600}
+.score{background:var(--surface);border:1px solid var(--b2);border-radius:18px;padding:32px;text-align:center;position:relative;overflow:hidden;backdrop-filter:blur(10px)}
+.score::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--violet),transparent)}
+.score-val{font-family:var(--fH);font-size:56px;letter-spacing:.04em;color:var(--cyan);text-shadow:0 0 30px rgba(0,200,255,.5);margin-bottom:6px; font-weight: 600;}
+.score-lbl{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-family:var(--fM);margin-bottom:20px}
+.score-desc{font-size:13px;color:rgba(232,238,255,.55);line-height:1.65; font-weight: 400;}
+
+.overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(6,8,16,.88);backdrop-filter:blur(20px);align-items:center;justify-content:center;padding:24px}
+.overlay.open{display:flex}
+.mbox{background:#070b18;border:1px solid rgba(0,200,255,.28);border-radius:20px;width:100%;max-width:900px;max-height:92vh;overflow-y:auto;position:relative}
+.mbox::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan) 50%,transparent)}
+.mhead{display:flex;justify-content:space-between;align-items:flex-start;padding:30px 34px 0}
+.mhead-info .mlabel{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--violet);font-family:var(--fM);margin-bottom:6px}
+.mhead-info .mtitle{font-family:var(--fH);font-size:28px;letter-spacing:.04em;color:var(--white); font-weight: 600;}
+.mclose{background:none;border:none;color:var(--muted);font-size:26px;cursor:pointer;line-height:1;transition:color .2s;margin-top:-4px;font-family:var(--fB)}
+.mclose:hover{color:var(--white)}
+.mbody{padding:26px 34px 34px}
+
+/* --- FIX LỖI PDF HIỂN THỊ NHỎ --- */
+.pdf-frame {
+    position: relative;
+    width: 100%;
+    height: 650px;
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+    margin-bottom: 18px;
+    -webkit-overflow-scrolling: touch; /* Hỗ trợ cuộn mượt trên iOS */
+}
+.pdf-frame iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+.pdf-empty{height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;border:1px dashed rgba(255,255,255,.1);border-radius:12px;color:var(--muted);font-size:14px;margin-bottom:18px; font-weight: 400;}
+.pdf-empty .eicon{font-size:38px}
+.mfooter{display:flex;justify-content:flex-end}
+.mlink{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);border:1px solid rgba(0,200,255,.25);padding:9px 18px;border-radius:6px;background:rgba(0,200,255,.06);text-decoration:none;font-family:var(--fM);transition:background .2s}
+.mlink:hover{background:rgba(0,200,255,.14)}
+
+footer{border-top:1px solid rgba(255,255,255,.04);padding-top:32px;margin-top:80px;text-align:center;font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.18);text-transform:uppercase;font-family:var(--fM)}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(0,200,255,.18);border-radius:3px}
+
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes glitch1{0%,95%,100%{transform:none;opacity:1}96%{transform:translate(-2px,1px);opacity:.8}98%{transform:translate(2px,-1px);opacity:.9}}
+@keyframes glitch2{0%,93%,100%{transform:none;opacity:1}94%{transform:translate(2px,-2px);opacity:.8}97%{transform:translate(-2px,2px);opacity:.9}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .8s ease both}
+.d1{animation-delay:.1s}.d2{animation-delay:.25s}.d3{animation-delay:.4s}
+
+@media(max-width:640px){
+  .hero-grid{grid-template-columns:1fr}
+  .reflect-wrap{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
 </head>
-<body class="relative text-ai-text">
+<body>
 
-    <div class="aurora-container">
-        <div class="aurora-blob blob-1"></div>
-        <div class="aurora-blob blob-2"></div>
-        <div class="aurora-blob blob-3"></div>
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+<canvas id="bg"></canvas>
+
+<nav>
+  <div class="nav-pill">
+    <div class="nav-logo"><span class="pulse"></span>HMD.ULIS</div>
+    <div class="nav-links">
+      <a href="#intro">Init</a>
+      <a href="#assignments">Modules</a>
+      <a href="#reflection">Status</a>
     </div>
-    <div class="bg-grid"></div>
+  </div>
+</nav>
 
-    <nav class="fixed top-0 w-full z-50 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-6 sm:px-12 py-5 flex justify-between items-center">
-            <div class="font-mono text-lg font-bold tracking-tight flex items-center gap-2">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 0L13.8242 8.17584L22 10L13.8242 11.8242L12 20L10.1758 11.8242L2 10L10.1758 8.17584L12 0Z" fill="url(#paint0_linear)"/>
-                    <path d="M19 16L19.547 18.453L22 19L19.547 19.547L19 22L18.453 19.547L16 19L18.453 18.453L19 16Z" fill="url(#paint1_linear)"/>
-                    <path d="M5 16L5.547 18.453L8 19L5.547 19.547L5 22L4.453 19.547L2 19L4.453 18.453L5 16Z" fill="url(#paint2_linear)"/>
-                    <defs>
-                        <linearGradient id="paint0_linear" x1="2" y1="10" x2="22" y2="10" gradientUnits="userSpaceOnUse"><stop stop-color="#4285F4"/><stop offset="1" stop-color="#d96570"/></linearGradient>
-                        <linearGradient id="paint1_linear" x1="16" y1="19" x2="22" y2="19" gradientUnits="userSpaceOnUse"><stop stop-color="#9b72cb"/><stop offset="1" stop-color="#d96570"/></linearGradient>
-                        <linearGradient id="paint2_linear" x1="2" y1="19" x2="8" y2="19" gradientUnits="userSpaceOnUse"><stop stop-color="#4285F4"/><stop offset="1" stop-color="#9b72cb"/></linearGradient>
-                    </defs>
-                </svg>
-                HBKC_Sys
-            </div>
-            <div class="hidden md:flex space-x-8 text-xs font-mono tracking-widest uppercase text-ai-muted">
-                <a href="#init" class="hover:text-white transition-colors">Init</a>
-                <a href="#datasets" class="hover:text-white transition-colors">Datasets</a>
-                <a href="#analysis" class="hover:text-white transition-colors">Analysis</a>
-            </div>
-        </div>
-    </nav>
+<div class="wrap">
 
-    <main class="content-layer">
+<section id="intro">
+  <div class="hero-tag fu"><span class="dot"></span>System Boot · ULIS_Portfolio_v6.0</div>
+  <h1 class="fu d1">
+    <span class="glitch grad" data-text="HOÀNG">HOÀNG</span><br>
+    <span class="glitch grad" data-text="MẠNH DŨNG">MẠNH DŨNG</span>
+  </h1>
+  <p class="hero-sub fu d2">Sư phạm Tiếng Anh &nbsp;·&nbsp; <span>ULIS K59</span> &nbsp;·&nbsp; Nhập môn CNS &amp; AI</p>
 
-        <section id="init" class="min-h-screen flex flex-col justify-center px-6 sm:px-12 max-w-7xl mx-auto pt-20">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-                
-                <div class="lg:col-span-7 space-y-8 z-10 reveal">
-                    <div class="inline-flex items-center space-x-3 px-4 py-2 rounded-full border border-ai-border bg-white/5 backdrop-blur-sm">
-                        <span class="w-2 h-2 rounded-full bg-ai-blue animate-pulse"></span>
-                        <span class="text-[11px] font-mono tracking-widest uppercase text-ai-muted">System Online</span>
-                    </div>
-                    
-                    <h1 class="text-5xl sm:text-7xl font-semibold leading-[1.1] tracking-tight">
-                        Hi, I'm <br>
-                        <span class="text-ai-gradient font-bold">Hoàng Bùi Khánh Chi</span>
-                    </h1>
-                    
-                    <p class="text-ai-muted text-base sm:text-lg leading-relaxed max-w-xl font-light">
-                        Sinh viên Sư phạm Tiếng Anh, ULIS-VNU. Chào mừng đến với không gian học thuật số—nơi giáo dục ngôn ngữ hội tụ cùng sức mạnh của Trí tuệ Nhân tạo.
-                    </p>
+  <div class="hero-grid fu d3">
+    <p class="hero-quote">
+      Tích hợp Công nghệ số &amp; AI để tối ưu hóa tri thức, sáng tạo nội dung giảng dạy và định hình tư duy giáo dục thế hệ mới tại ULIS-VNU.
+    </p>
+    <div class="id-card">
+      <div class="id-name">Hoàng Mạnh Dũng</div>
+      <div class="id-role">Sư phạm Tiếng Anh · Khoa NNVHA</div>
+      <div class="id-rows">
+        <div class="id-row"><span>MSSV</span><strong>25040049</strong></div>
+        <div class="id-row"><span>Khoá</span><strong>K59</strong></div>
+        <div class="id-row"><span>Trường</span><strong>ULIS-VNU</strong></div>
+      </div>
+      <div class="id-tags">
+        <span class="tag tag-c">Active</span>
+        <span class="tag tag-v">Verified</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-                    <div class="pt-4">
-                        <a href="#datasets" class="inline-flex items-center justify-center space-x-2 bg-white text-black px-8 py-3 rounded-lg text-sm font-semibold hover:bg-gray-200 transition-colors duration-300">
-                            <span>Access Modules</span>
-                            <i data-feather="arrow-right" class="w-4 h-4"></i>
-                        </a>
-                    </div>
-                </div>
+<section id="assignments" class="sec">
+  <div class="sec-head fu">
+    <h2>06 Modules</h2>
+    <div class="rule"></div>
+  </div>
 
-                <div class="lg:col-span-5 relative reveal delay-1">
-                    <div class="glass-card p-8 sm:p-10 relative z-10">
-                        <div class="flex justify-between items-center mb-8 border-b border-ai-border pb-4">
-                            <h3 class="font-mono text-xs uppercase tracking-widest text-ai-muted">Identity Profile</h3>
-                            <i data-feather="cpu" class="w-5 h-5 text-ai-purple"></i>
-                        </div>
-                        
-                        <div class="space-y-6">
-                            <div class="flex justify-between items-center">
-                                <p class="text-xs text-ai-muted font-mono uppercase">ID_Code</p>
-                                <p class="text-sm font-bold tracking-wider text-ai-gradient">25040036</p>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <p class="text-xs text-ai-muted font-mono uppercase">Cohort</p>
-                                <p class="text-sm font-semibold">K59</p>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <p class="text-xs text-ai-muted font-mono uppercase">Course</p>
-                                <p class="text-sm font-semibold">Nhập môn CNS & AI</p>
-                            </div>
-                            
-                            <div class="pt-6 mt-6 border-t border-ai-border">
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="text-[10px] uppercase font-mono px-3 py-1 rounded-full border border-ai-blue/30 bg-ai-blue/10 text-ai-blue">Prompting</span>
-                                    <span class="text-[10px] uppercase font-mono px-3 py-1 rounded-full border border-ai-purple/30 bg-ai-purple/10 text-ai-purple">Cloud_Sync</span>
-                                    <span class="text-[10px] uppercase font-mono px-3 py-1 rounded-full border border-ai-pink/30 bg-ai-pink/10 text-ai-pink">EdTech</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="datasets" class="py-32 max-w-7xl mx-auto px-6 sm:px-12 relative">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-ai-border pb-6 reveal">
-                <div>
-                    <h2 class="font-mono text-3xl sm:text-4xl font-bold mb-2">Neural Datasets.</h2>
-                    <p class="text-ai-muted text-sm font-light">6 Phân hệ Kiến thức và Kỹ năng Số</p>
-                </div>
-                <div class="font-mono text-xs text-ai-blue mt-4 md:mt-0 px-4 py-2 bg-ai-blue/10 rounded-lg">
-                    Status: 1/6 Processed
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <div class="module-card reveal" onclick="openModal('m1')">
-                    <div class="flex justify-between items-start mb-8">
-                        <div class="w-10 h-10 rounded-lg bg-ai-blue/20 flex items-center justify-center text-ai-blue">
-                            <i data-feather="folder" class="w-5 h-5"></i>
-                        </div>
-                        <span class="text-[10px] font-mono px-2 py-1 bg-green-500/10 text-green-400 border border-green-500/20 rounded">COMPILED</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Quản lý tệp & Thư mục</h3>
-                    <p class="text-ai-muted text-sm leading-relaxed mb-6 font-light">
-                        Thiết lập kiến trúc lưu trữ dữ liệu đám mây tối ưu, đảm bảo nguyên tắc phân loại thông tin khoa học.
-                    </p>
-                    <div class="font-mono text-xs text-ai-blue flex items-center gap-2">
-                        <span>Execute Data</span> <i data-feather="chevron-right" class="w-4 h-4"></i>
-                    </div>
-                </div>
-
-                <div class="module-card locked reveal delay-1">
-                    <div class="flex justify-between items-start mb-8">
-                        <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400">
-                            <i data-feather="search" class="w-5 h-5"></i>
-                        </div>
-                        <span class="text-[10px] font-mono px-2 py-1 bg-gray-800 text-gray-400 rounded">PENDING</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Tìm kiếm & Đánh giá</h3>
-                    <p class="text-ai-muted text-sm leading-relaxed mb-6 font-light">
-                        Thẩm định nguồn tin số, lọc nhiễu dữ liệu và xác thực tính học thuật.
-                    </p>
-                </div>
-
-                <div class="module-card locked reveal delay-2">
-                    <div class="flex justify-between items-start mb-8">
-                        <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400">
-                            <i data-feather="terminal" class="w-5 h-5"></i>
-                        </div>
-                        <span class="text-[10px] font-mono px-2 py-1 bg-gray-800 text-gray-400 rounded">PENDING</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Viết Prompt hiệu quả</h3>
-                    <p class="text-ai-muted text-sm leading-relaxed mb-6 font-light">
-                        Nghệ thuật giao tiếp với GenAI qua cấu trúc kỹ thuật: Persona, Task, Context.
-                    </p>
-                </div>
-
-                <div class="module-card locked reveal">
-                    <div class="flex justify-between items-start mb-8">
-                        <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400">
-                            <i data-feather="users" class="w-5 h-5"></i>
-                        </div>
-                        <span class="text-[10px] font-mono px-2 py-1 bg-gray-800 text-gray-400 rounded">PENDING</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Hợp tác trực tuyến</h3>
-                    <p class="text-ai-muted text-sm leading-relaxed mb-6 font-light">
-                        Ứng dụng nền tảng số để quản trị dự án, tối ưu hóa giao tiếp và phối hợp làm việc nhóm.
-                    </p>
-                </div>
-
-                <div class="module-card locked reveal delay-1">
-                    <div class="flex justify-between items-start mb-8">
-                        <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400">
-                            <i data-feather="image" class="w-5 h-5"></i>
-                        </div>
-                        <span class="text-[10px] font-mono px-2 py-1 bg-gray-800 text-gray-400 rounded">PENDING</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Sáng tạo nội dung AI</h3>
-                    <p class="text-ai-muted text-sm leading-relaxed mb-6 font-light">
-                        Thiết kế tư liệu trực quan, biên tập truyền thông với sự hỗ trợ của công nghệ AI.
-                    </p>
-                </div>
-
-                <div class="module-card locked reveal delay-2">
-                    <div class="flex justify-between items-start mb-8">
-                        <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400">
-                            <i data-feather="shield" class="w-5 h-5"></i>
-                        </div>
-                        <span class="text-[10px] font-mono px-2 py-1 bg-gray-800 text-gray-400 rounded">PENDING</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">AI có trách nhiệm</h3>
-                    <p class="text-ai-muted text-sm leading-relaxed mb-6 font-light">
-                        Khung nguyên tắc đạo đức, bảo mật dữ liệu và chuẩn mực ứng xử số.
-                    </p>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="analysis" class="py-32 relative reveal">
-            <div class="max-w-4xl mx-auto px-6 sm:px-12">
-                <div class="glass-card p-10 sm:p-16 border-l-4 border-l-ai-purple">
-                    <h2 class="font-mono text-3xl font-bold mb-8 flex items-center gap-3">
-                        <i data-feather="bar-chart-2" class="text-ai-purple"></i> Self_Analysis
-                    </h2>
-                    
-                    <div class="space-y-6 text-ai-muted text-[15px] leading-relaxed font-light">
-                        <p>
-                            Qua học phần <strong class="text-white font-medium">Nhập môn Công nghệ số & AI</strong>, tư duy của em đã chuyển dịch từ việc "sử dụng" công cụ sang tâm thế "làm chủ" hệ thống. Sự tinh gọn và hiệu quả không tự nhiên sinh ra, nó đến từ việc thiết lập các cấu trúc kỷ luật logic.
-                        </p>
-                        <p>
-                            Với tư cách là một sinh viên Sư phạm Anh ngữ, em nhận thức rõ: AI không làm giảm giá trị của người thầy. Thay vào đó, nó giải phóng người thầy khỏi các tác vụ lặp đi lặp lại, thiết lập một tiêu chuẩn giáo dục mới—tinh giản, sắc bén và cá nhân hóa hơn.
-                        </p>
-                    </div>
-
-                    <div class="mt-10 pt-8 border-t border-ai-border flex justify-between items-center">
-                        <span class="font-mono text-xs uppercase text-ai-muted">Evaluation_Score</span>
-                        <span class="font-mono text-2xl font-bold text-ai-gradient">TỐT</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer class="py-10 border-t border-ai-border text-center flex flex-col items-center">
-            <div class="font-mono text-sm font-bold text-ai-text mb-2">HBKC_Sys v2.0</div>
-            <p class="text-[10px] font-mono uppercase tracking-widest text-ai-muted">
-                © 2026 ULIS-VNU • 25040036
-            </p>
-        </footer>
-
-    </main>
-
-    <div id="modal-m1" class="fixed inset-0 z-[100] bg-[#040509]/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-500 items-center justify-center p-4 sm:p-10">
-        <div class="absolute inset-0 cursor-pointer" onclick="closeModal('m1')"></div>
-        
-        <div class="glass-card bg-[#0d1117] w-full max-w-5xl h-[90vh] relative flex flex-col transform scale-95 transition-transform duration-500 z-10 border-ai-blue/30" id="modal-content-m1">
-            
-            <div class="flex justify-between items-center p-6 border-b border-ai-border">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded bg-ai-blue/20 flex items-center justify-center text-ai-blue">
-                        <i data-feather="database" class="w-4 h-4"></i>
-                    </div>
-                    <div>
-                        <p class="font-mono text-[10px] uppercase text-ai-blue tracking-widest">Dataset 01</p>
-                        <h3 class="font-bold text-lg text-white">Quản lý tệp & Thư mục</h3>
-                    </div>
-                </div>
-                <button onclick="closeModal('m1')" class="text-ai-muted hover:text-white bg-white/5 p-2 rounded-lg transition-colors">
-                    <i data-feather="x" class="w-5 h-5"></i>
-                </button>
-            </div>
-            
-            <div class="flex-grow p-6 relative">
-                <div class="absolute inset-0 bg-gradient-to-b from-ai-blue/5 to-ai-purple/5 pointer-events-none"></div>
-                
-                <div class="pdf-frame" style="position: relative; overflow: hidden; width: 100%; height: 100%; border-radius: 12px; border: 1px solid rgba(255,255,255,0.07); background: #000; z-index: 10;">
-                    <iframe 
-                      src="tmpjsn7nt_thao-tac-co-ban-voi-tep-tin-va-thu-muc-.pdf#zoom=page-width" 
-                      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: block;" 
-                      title="Assignment PDF">
-                    </iframe>
-                </div>
-            </div>
-            
-            <div class="p-6 border-t border-ai-border flex justify-end">
-                <a href="tmpjsn7nt_thao-tac-co-ban-voi-tep-tin-va-thu-muc-.pdf" target="_blank" class="font-mono text-xs uppercase tracking-widest text-ai-text bg-white/10 hover:bg-white/20 px-6 py-3 rounded-lg transition-colors flex items-center gap-2">
-                    <span>Extract File</span>
-                    <i data-feather="external-link" class="w-3 h-3"></i>
-                </a>
-            </div>
-        </div>
+  <div class="grid6">
+    <div class="mod" onclick="openM('m1');addRipple(event,this)">
+      <div class="mod-num">01</div>
+      <div class="mod-tag"><span class="sdot done"></span>Hoàn thành</div>
+      <div class="mod-title">Quản lý tệp &amp; thư mục</div>
+      <div class="mod-desc">Cấu trúc hệ thống lưu trữ Cloud khoa học, quy tắc đặt tên tệp tin và tối ưu hóa dữ liệu cá nhân.</div>
+      <span class="mod-btn">[ View Details ] →</span>
     </div>
 
-    <script>
-        feather.replace();
+    <div class="mod locked">
+      <div class="mod-num">02</div>
+      <div class="mod-tag"><span class="sdot wip"></span>Đang thực hiện</div>
+      <div class="mod-title">Tìm kiếm &amp; Đánh giá thông tin</div>
+      <div class="mod-desc">Kỹ thuật thẩm định nguồn tin số, lọc nhiễu dữ liệu và xác thực tính học thuật.</div>
+      <span class="mod-lock">Updating...</span>
+    </div>
 
-        /* --- NAVBAR BLUR EFFECT --- */
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('bg-[#040509]/80', 'backdrop-blur-md', 'border-b', 'border-ai-border');
-            } else {
-                nav.classList.remove('bg-[#040509]/80', 'backdrop-blur-md', 'border-b', 'border-ai-border');
-            }
-        });
+    <div class="mod locked">
+      <div class="mod-num">03</div>
+      <div class="mod-tag"><span class="sdot wip"></span>Đang thực hiện</div>
+      <div class="mod-title">Viết Prompt hiệu quả</div>
+      <div class="mod-desc">Cấu trúc câu lệnh AI nâng cao: Persona, Task, Context, Format để tối ưu đầu ra GenAI.</div>
+      <span class="mod-lock">Updating...</span>
+    </div>
 
-        /* --- SCROLL REVEAL ANIMATIONS --- */
-        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+    <div class="mod locked">
+      <div class="mod-num">04</div>
+      <div class="mod-tag"><span class="sdot wip"></span>Đang thực hiện</div>
+      <div class="mod-title">Hợp tác trực tuyến</div>
+      <div class="mod-desc">Ứng dụng công cụ làm việc nhóm đồng bộ và bất đồng bộ hiệu suất cao trong môi trường số.</div>
+      <span class="mod-lock">Updating...</span>
+    </div>
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    <div class="mod locked">
+      <div class="mod-num">05</div>
+      <div class="mod-tag"><span class="sdot wip"></span>Đang thực hiện</div>
+      <div class="mod-title">Sáng tạo nội dung với AI</div>
+      <div class="mod-desc">Thiết kế hình ảnh, video và bài thuyết trình chuyên nghiệp với sự hỗ trợ của trí tuệ nhân tạo.</div>
+      <span class="mod-lock">Updating...</span>
+    </div>
 
-        /* --- MODAL LOGIC --- */
-        function openModal(id) {
-            const modal = document.getElementById(`modal-${id}`);
-            const content = document.getElementById(`modal-content-${id}`);
-            modal.classList.remove('hidden');
-            modal.style.display = 'flex';
-            void modal.offsetWidth; // Trigger reflow
-            modal.classList.remove('opacity-0');
-            content.classList.remove('scale-95');
-            document.body.style.overflow = 'hidden'; 
+    <div class="mod locked">
+      <div class="mod-num">06</div>
+      <div class="mod-tag"><span class="sdot wip"></span>Đang thực hiện</div>
+      <div class="mod-title">AI có trách nhiệm</div>
+      <div class="mod-desc">Đạo đức AI, quyền riêng tư và các nguyên tắc sử dụng trí tuệ nhân tạo văn minh, bền vững.</div>
+      <span class="mod-lock">Updating...</span>
+    </div>
+  </div>
+</section>
+
+<section id="reflection" class="sec">
+  <div class="sec-head fu">
+    <h2>Tổng kết</h2>
+    <div class="rule"></div>
+  </div>
+
+  <div class="reflect-wrap">
+    <div class="reflect-body">
+      <p>Qua học phần <span class="hl">Nhập môn CNS &amp; AI</span> tại ULIS-VNU, em đã chuyển đổi tư duy từ việc sử dụng công cụ bản năng sang việc <span class="hl">làm chủ hệ thống số</span>. Từ quản lý tệp tin khoa học đến viết Prompt có cấu trúc, mỗi kỹ năng đều mở ra một chiều không gian mới trong cách em tiếp cận việc học.</p>
+      <p>Portfolio này không chỉ là tập hợp các bài tập — đây là bằng chứng cho hành trình thích nghi của một sinh viên Sư phạm Tiếng Anh trong kỷ nguyên trí tuệ nhân tạo. Mỗi module là một bước tiến trên con đường trở thành giáo viên <span class="hl">4.0</span> trong tương lai.</p>
+      <p>Kỹ năng quan trọng nhất em nhận được là <span class="hl">tư duy làm chủ công nghệ</span>: AI chỉ là công cụ — con người mới là người định hướng và sáng tạo.</p>
+    </div>
+    <div class="score">
+      <div class="score-val">Tốt</div>
+      <div class="score-lbl">Self-Assessment</div>
+      <div class="score-desc">Cam kết hoàn thành trọn vẹn mục tiêu học phần và sẵn sàng ứng dụng tri thức vào thực tiễn giảng dạy tương lai.</div>
+    </div>
+  </div>
+</section>
+
+<footer>Portfolio_v6 &nbsp;·&nbsp; © 2026 ULIS-VNU &nbsp;·&nbsp; Hoàng Mạnh Dũng &nbsp;·&nbsp; 25040049</footer>
+</div>
+
+<div class="overlay" id="overlay-m1" onclick="handleOuter(event,'m1')">
+  <div class="mbox">
+    <div class="mhead">
+      <div class="mhead-info">
+        <div class="mlabel">Module 01 · Hoàn thành</div>
+        <div class="mtitle">Quản lý tệp &amp; thư mục</div>
+      </div>
+      <button class="mclose" onclick="closeM('m1')">×</button>
+    </div>
+    <div class="mbody">
+      
+      <div class="pdf-frame">
+          <iframe src="tmpjsn7nt_thao-tac-co-ban-voi-tep-tin-va-thu-muc-.pdf#zoom=page-width" title="Assignment PDF"></iframe>
+      </div>
+
+      <div class="mfooter">
+        <a class="mlink" href="tmpjsn7nt_thao-tac-co-ban-voi-tep-tin-va-thu-muc-.pdf" target="_blank">Mở trong tab mới ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="overlay-m2" onclick="handleOuter(event,'m2')"><div class="mbox"><div class="mhead"><div class="mhead-info"><div class="mlabel">Module 02</div><div class="mtitle">Tìm kiếm &amp; Đánh giá thông tin</div></div><button class="mclose" onclick="closeM('m2')">×</button></div><div class="mbody"><div class="pdf-empty"><span class="eicon">📂</span><span>Tài liệu đang được cập nhật</span></div></div></div></div>
+<div class="overlay" id="overlay-m3" onclick="handleOuter(event,'m3')"><div class="mbox"><div class="mhead"><div class="mhead-info"><div class="mlabel">Module 03</div><div class="mtitle">Viết Prompt hiệu quả</div></div><button class="mclose" onclick="closeM('m3')">×</button></div><div class="mbody"><div class="pdf-empty"><span class="eicon">🤖</span><span>Tài liệu đang được cập nhật</span></div></div></div></div>
+<div class="overlay" id="overlay-m4" onclick="handleOuter(event,'m4')"><div class="mbox"><div class="mhead"><div class="mhead-info"><div class="mlabel">Module 04</div><div class="mtitle">Hợp tác trực tuyến</div></div><button class="mclose" onclick="closeM('m4')">×</button></div><div class="mbody"><div class="pdf-empty"><span class="eicon">👥</span><span>Tài liệu đang được cập nhật</span></div></div></div></div>
+<div class="overlay" id="overlay-m5" onclick="handleOuter(event,'m5')"><div class="mbox"><div class="mhead"><div class="mhead-info"><div class="mlabel">Module 05</div><div class="mtitle">Sáng tạo nội dung với AI</div></div><button class="mclose" onclick="closeM('m5')">×</button></div><div class="mbody"><div class="pdf-empty"><span class="eicon">🎨</span><span>Tài liệu đang được cập nhật</span></div></div></div></div>
+<div class="overlay" id="overlay-m6" onclick="handleOuter(event,'m6')"><div class="mbox"><div class="mhead"><div class="mhead-info"><div class="mlabel">Module 06</div><div class="mtitle">AI có trách nhiệm</div></div><button class="mclose" onclick="closeM('m6')">×</button></div><div class="mbody"><div class="pdf-empty"><span class="eicon">⚖️</span><span>Tài liệu đang được cập nhật</span></div></div></div></div>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cursor'),trail=document.getElementById('cursor-trail');
+let mx=0,my=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+  setTimeout(()=>{trail.style.left=mx+'px';trail.style.top=my+'px';},80);
+});
+document.addEventListener('mousedown',()=>{cur.style.transform='translate(-50%,-50%) scale(1.8)';cur.style.background='var(--violet)'});
+document.addEventListener('mouseup',()=>{cur.style.transform='translate(-50%,-50%) scale(1)';cur.style.background='var(--cyan)'});
+
+/* RIPPLE */
+function addRipple(e,el){
+  const r=document.createElement('span');r.classList.add('ripple');
+  const rect=el.getBoundingClientRect(),size=Math.max(rect.width,rect.height);
+  r.style.cssText=`width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+  el.appendChild(r);setTimeout(()=>r.remove(),700);
+}
+
+/* MODAL CONTROL */
+function openM(id){document.getElementById('overlay-'+id).classList.add('open');document.body.style.overflow='hidden'}
+function closeM(id){document.getElementById('overlay-'+id).classList.remove('open');document.body.style.overflow=''}
+function handleOuter(e,id){if(e.target===e.currentTarget)closeM(id)}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.overlay.open').forEach(o=>{o.classList.remove('open');document.body.style.overflow=''})});
+
+/* HIỆU ỨNG GALAXY BACKGROUND */
+(function(){
+  const cv=document.getElementById('bg'),ctx=cv.getContext('2d');
+  let W,H;
+  function resize(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+
+  const COLS=['#00c8ff','#b44fff','#ff3ea5'];
+  const N=120;
+  const pts=Array.from({length:N},()=>({
+    x:Math.random()*window.innerWidth,
+    y:Math.random()*window.innerHeight,
+    vx:(Math.random()-.5)*.5,
+    vy:(Math.random()-.5)*.5,
+    r:Math.random()*1.5+.5,
+    col:COLS[Math.floor(Math.random()*COLS.length)]
+  }));
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+    });
+
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const a=pts[i],b=pts[j];
+        const dx=a.x-b.x,dy=a.y-b.y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<110){
+          const al=(1-d/110)*.25;
+          ctx.strokeStyle=a.col;
+          ctx.globalAlpha=al;
+          ctx.lineWidth=.8;
+          ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+          ctx.globalAlpha=1;
         }
+      }
+    }
 
-        function closeModal(id) {
-            const modal = document.getElementById(`modal-${id}`);
-            const content = document.getElementById(`modal-content-${id}`);
-            modal.classList.add('opacity-0');
-            content.classList.add('scale-95');
-            document.body.style.overflow = '';
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.style.display = 'none';
-            }, 500); 
-        }
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                const openModalDiv = document.querySelector('[id^="modal-"]:not(.hidden)');
-                if (openModalDiv) {
-                    const id = openModalDiv.id.split('-')[1];
-                    closeModal(id);
-                }
-            }
-        });
-    </script>
+    pts.forEach(p=>{
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.col;ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
 </body>
 </html>
